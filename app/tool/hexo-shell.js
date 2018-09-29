@@ -8,6 +8,7 @@ var shellServer = (function () {
     const Promise = require('bluebird');
     const thread_kill = require('./thread_kill');
     const exec = require('child_process').exec;
+    const process = require('process')
     const util = require('util');
     const log = log4js.getLogger('hexo-shell.js')
 
@@ -49,7 +50,8 @@ var shellServer = (function () {
             _shellServer.isForce = false;
             log.info("path:", process.env.PATH)
             log.info('Begin execute:', `[${moeApp.hexo.config.__basedir}] [${command}]`);
-            _shellServer.shellProcess = exec(command, {cwd: moeApp.hexo.config.__basedir});
+            console.log(process.env)
+            _shellServer.shellProcess = exec(command, {cwd: moeApp.hexo.config.__basedir, env: process.env});
             _shellServer.sendConsole('<i class="fa fa-spinner fa-pulse fa-fw margin-bottom"></i>' + __("Executing"), 'info', 'ban');
             _shellServer.shellProcess.stderr.on('data', (data) => {
                 log.error(data);
