@@ -167,6 +167,12 @@ function setHexoConfig(val) {
     window.updatePreview(true);
 };
 
+function setHexoUserScript(val){
+    hexo.changeUserScript(val);
+    imgManager.updateBase();
+    window.updatePreview(true);
+}
+
 function setHexoTagPaths(val) {
     hexo.loadTags();
     window.updatePreview(true);
@@ -304,6 +310,7 @@ tryRun(setHexoAutoSetting, moeApp.config.get('hexo-auto-setting'));
 tryRun(setHexoConfigEnable, moeApp.config.get('hexo-config-enable'));
 tryRun(setHexoConfig, moeApp.config.get('hexo-config'));
 tryRun(setHexoTagPaths, moeApp.config.get('hexo-tag-paths'));
+tryRun(setHexoUserScript, moeApp.config.get('hexo-tag-paths'));
 
 const ipcRenderer = require('electron').ipcRenderer;
 ipcRenderer.on('setting-changed', (e, arg) => {
@@ -339,6 +346,8 @@ ipcRenderer.on('setting-changed', (e, arg) => {
         tryRun(setHexoConfigEnable, arg.val);
     } else if (arg.key === 'hexo-config') {
         tryRun(setHexoConfig, arg.val);
+    } else if (arg.key === 'hexo-user-script'){
+        tryRun(setHexoUserScript, arg.val);
     } else if (arg.key === 'hexo-tag-paths') {
         tryRun(setHexoTagPaths, arg.val);
     } else if (arg.key === 'custom-csss') {

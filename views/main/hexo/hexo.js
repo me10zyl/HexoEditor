@@ -22,6 +22,7 @@ function Hexo() {
     this.enable = !!moeApp.config.get('hexo-config-enable');
     this.render = new Render(this);
     this.loadConfig();
+    this.userScript = !!moeApp.config.get('hexo-user-script');
     moeApp.config.set('hexo-root-dir',this.config.__basedir);
     moeApp.setHexo(this);
 }
@@ -77,6 +78,12 @@ Hexo.prototype.loadTags = function () {
     for(let i=0,len=paths.length; i<len;i++)  {
         loaddir(paths[i]);
     }
+}
+
+Hexo.prototype.changeUserScript = function(userscript){
+    this.hexoUserScript = moeApp.config.get('hexo-user-script');
+
+    log.info("run change user script " + this.hexoUserScript)
 }
 
 Hexo.prototype.changeConfig = function (enable) {

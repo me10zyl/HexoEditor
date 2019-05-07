@@ -45,6 +45,7 @@ module.exports = {
     'hexo-auto-setting': false,
     'hexo-config-enable': false,
     'hexo-config': '',
+    'hexo-user-script' : '',
     'hexo-tag-paths': [] ,
     'image-source-center': '',
     'image-web-type':'sm',

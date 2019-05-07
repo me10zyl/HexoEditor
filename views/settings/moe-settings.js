@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const item of items) {
         const key = item.getAttribute('data-key');
         const oldVal = moeApp.config.get(key);
+        log.info("oldVal ",key,oldVal)
         if (item.tagName === 'SELECT' || item.tagName === 'INPUT' || item.tagName === 'TEXTAREA') {
             if (item.tagName === 'INPUT' && item.type === 'checkbox') item.checked = oldVal;
             else item.value = oldVal;
@@ -219,6 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let hexoConfigEnableButton = document.querySelector('input[data-key="hexo-config-enable"]');
     let hexoConfigLoadButton = document.querySelector('#hexo-config-btn');
     let hexoConfigInput = document.querySelector('input[data-key="hexo-config"]');
+    let hexoUserDefinedDeployScriptInput = document.querySelector('input[data-key="hexo-user-script"]');
+
+    hexoUserDefinedDeployScriptInput.addEventListener('blur', ()=>{
+        moeApp.config.set('hexo-user-script', hexoUserDefinedDeployScriptInput.value);
+        ipcRenderer.send('setting-changed', {key: 'hexo-user-script', val: hexoUserDefinedDeployScriptInput.value});
+    })
 
     hexoConfigEnableButton.addEventListener('click',()=>{
         moeApp.config.set('hexo-config-enable', hexoConfigEnableButton.checked);

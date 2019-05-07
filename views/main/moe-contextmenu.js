@@ -296,6 +296,22 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                     ]
+                },
+                {
+                    label: "HEXOUserScript",
+                    visible: true,
+                    enabled: true,
+                    click(item, w) {
+                        let userScript  = hexo.hexoUserScript;
+                        let cwd = userScript.substring(0, userScript.lastIndexOf("/"))
+                        require('child_process').execFile(userScript,{
+                            cwd : cwd
+                        },function (err, stdout, stderr) {
+                            log.info(err)
+                            log.info(stdout)
+                            log.info(stderr)
+                        });
+                    }
                 }
             ];
             Menu.buildFromTemplate(template).popup(remote.getCurrentWindow());
